@@ -57,8 +57,36 @@ body{
 .open-btn:hover{
     transform:scale(1.1);
 }
+    .progress-container{
+    width:250px;
+    height:10px;
+    background:#222;
+    border-radius:20px;
+    margin:15px auto;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#00ff99;
+    border-radius:20px;
+    animation:loading 3s forwards;
+}
+
+@keyframes loading{
+    from{
+        width:0%;
+    }
+    to{
+        width:100%;
+    }
+    }
   </style>
 <p>Initializing VPN App...</p>
+  <div class="progress-container">
+    <div class="progress-bar"></div>
+  </div>
 
 <div style="
 width:220px;
@@ -113,5 +141,11 @@ document.getElementById("main-content").style.display = "block";
 }, 30);
 
 </script>
+  <script>
+setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.querySelector(".progress-container").style.display = "none";
+}, 3000);
+  </script>
 
 </body>
