@@ -30,6 +30,23 @@ z-index:9999;">
 <h1>VPN App</h1>
 <p>Initializing VPN App...</p>
 
+<div style="
+width:220px;
+height:10px;
+background:#222;
+border-radius:10px;
+overflow:hidden;
+margin-top:10px;">
+
+<div id="progress" style="
+width:0%;
+height:100%;
+background:#00ffff;
+box-shadow:0 0 10px #00ffff;">
+</div>
+
+</div>
+
 </div>
 
 <div id="main-content" style="display:none;text-align:center;padding-top:50px;">
@@ -44,10 +61,27 @@ z-index:9999;">
 </div>
 
 <script>
-setTimeout(function(){
+
+let width = 0;
+
+let interval = setInterval(function(){
+
+width += 1;
+
+document.getElementById("progress").style.width = width + "%";
+
+if(width >= 100){
+
+clearInterval(interval);
+
 document.getElementById("splash").style.display = "none";
+
 document.getElementById("main-content").style.display = "block";
-}, 3000);
+
+}
+
+}, 30);
+
 </script>
 
 </body>
