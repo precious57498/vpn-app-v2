@@ -35,6 +35,18 @@ body{
     text-align:center;
     font-family:Arial,sans-serif;
 }
+    body{
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+    }
 
 .open-btn{
     background:#00ff99;
@@ -120,6 +132,43 @@ body{
 .status-card p{
     margin:8px 0;
   }
+    .particle{
+    position:fixed;
+    width:4px;
+    height:4px;
+    background:#00ffff;
+    border-radius:50%;
+    animation: float 8s linear infinite;
+}
+
+.particle:nth-child(1){
+    left:20%;
+    animation-delay:0s;
+}
+
+.particle:nth-child(2){
+    left:50%;
+    animation-delay:2s;
+}
+
+.particle:nth-child(3){
+    left:80%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+    }
   </style>
 <p>Initializing VPN App...</p>
   <div class="progress-container">
@@ -191,5 +240,8 @@ setTimeout(() => {
     document.querySelector(".progress-container").style.display = "none";
 }, 3000);
   </script>
+  <div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
 
 </body>
