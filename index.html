@@ -82,10 +82,37 @@ body{
         width:100%;
     }
     }
+    .status-card{
+    background:#111;
+    border:1px solid #00ffff;
+    border-radius:15px;
+    padding:15px;
+    margin:20px auto;
+    width:260px;
+
+    box-shadow:
+    0 0 10px #00ffff,
+    0 0 20px rgba(0,255,255,0.3);
+}
+
+.status-card h3{
+    color:#00ffff;
+    margin-bottom:10px;
+}
+
+.status-card p{
+    margin:8px 0;
+  }
   </style>
 <p>Initializing VPN App...</p>
   <div class="progress-container">
     <div class="progress-bar"></div>
+  </div>
+  <div class="status-card">
+    <h3>🌐 VPN Status</h3>
+    <p>🟢 Status: Online</p>
+    <p>🌍 Server: Cameroon</p>
+    <p>⚡ Speed: Fast</p>
   </div>
 
 <div style="
