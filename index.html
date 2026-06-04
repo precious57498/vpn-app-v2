@@ -25,7 +25,7 @@ justify-content:center;
 align-items:center;
 z-index:9999;">
 
-<img src="icon.png" width="180" id="logo">
+<img src="vpn-logo.png" width="120" class="logo">
 
 <h1>VPN App</h1>
   <style>
@@ -73,6 +73,23 @@ body{
     border-radius:20px;
     animation:loading 3s forwards;
 }
+    .logo{
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        filter:
+        drop-shadow(0 0 5px #00ffff)
+        drop-shadow(0 0 10px #00ffff);
+    }
+
+    to{
+        filter:
+        drop-shadow(0 0 15px #ff00ff)
+        drop-shadow(0 0 30px #ff00ff);
+    }
+    }
 
 @keyframes loading{
     from{
