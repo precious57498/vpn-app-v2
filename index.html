@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VPN App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+</head>
+<body style="background:black;color:white;text-align:center;">
+  <h1>🚀 VPN App</h1>
+  <p>Accès rapide à tes fichiers VPN</p>
+
+  <a href="https://formation-plus-fichiers-237.carrd.co/">
+    <button>📲 Ouvrir</button>
+  </a>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
