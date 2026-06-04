@@ -144,6 +144,10 @@ Initializing VPN App...
 
 <div class="status">✅ No Leaks Detected</div>
   </div>
+  <div class="card">
+<h3>🕒 Current Time</h3>
+<p id="clock">Loading...</p>
+  </div>
 
 <button class="open-btn hidden" id="openBtn">
 📲 Ouvrir
@@ -168,6 +172,18 @@ window.location.href=
 "https://formation-plus-fichiers-237.carrd.co/";
 
 };
+  function updateClock() {
+
+const now = new Date();
+
+document.getElementById("clock").innerHTML =
+now.toLocaleTimeString();
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
 
 </script>
 
