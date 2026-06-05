@@ -27,6 +27,31 @@ margin:auto;
 padding-top:40px;
 padding-bottom:120px;
 }
+  .particle{
+position:fixed;
+width:4px;
+height:4px;
+background:#00ffff;
+border-radius:50%;
+opacity:.7;
+animation:float 12s linear infinite;
+pointer-events:none;
+}
+
+.particle:nth-child(1){left:10%;}
+.particle:nth-child(2){left:30%;}
+.particle:nth-child(3){left:50%;}
+.particle:nth-child(4){left:70%;}
+.particle:nth-child(5){left:90%;}
+
+@keyframes float{
+from{
+transform:translateY(100vh);
+}
+to{
+transform:translateY(-100px);
+}
+}
 
 .logo{
 width:180px;
@@ -175,6 +200,10 @@ opacity:.6;
 </head>
 
 <body>
+  <div class="card">
+<h3>🔔 Updates</h3>
+<p id="updateText">No new updates</p>
+  </div>
 
 <div class="container">
 
@@ -371,6 +400,21 @@ vpnState.innerHTML = "Status: Disconnected 🔴";
 }
 
 };
+  const updates = [
+"🟢 New VPN configs available",
+"⚡ Server maintenance completed",
+"🌍 New server added: Germany",
+"🔒 Security improvements applied"
+];
+
+function randomUpdate(){
+document.getElementById("updateText").innerHTML =
+updates[Math.floor(Math.random()*updates.length)];
+}
+
+setInterval(randomUpdate,10000);
+
+randomUpdate();
   const countrySelect =
 document.getElementById("countrySelect");
 
@@ -475,6 +519,11 @@ deferredPrompt.prompt();
   }
 
 </script>
+  <div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
 
 </body>
 </html>
