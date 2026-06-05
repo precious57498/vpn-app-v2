@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+
+<title>Application VPN</title>
+
+<style>
+
+body{
+margin:0;
+background:#000;
+font-family:Arial,sans-serif;
+color:white;
+overflow-y:auto;
+}
+
+.container{
+text-align:center;
+width:90%;
+max-width:350px;
+margin:auto;
+padding-top:40px;
+padding-bottom:120px;
+}
+  .particle{
+position:fixed;
+width:4px;
+height:4px;
+background:#00ffff;
+border-radius:50%;
+opacity:.7;
+animation:float 12s linear infinite;
+pointer-events:none;
+}
+
+.particle:nth-child(1){left:10%;}
+.particle:nth-child(2){left:30%;}
+.particle:nth-child(3){left:50%;}
+.particle:nth-child(4){left:70%;}
+.particle:nth-child(5){left:90%;}
+
+@keyframes float{
+from{
+transform:translateY(100vh);
+}
+to{
+transform:translateY(-100px);
+}
+}
+  .light-mode{
+background:#f5f5f5;
+color:#000;
+  }
+
+.logo{
+width:180px;
+margin-top:20px;
+margin-bottom:20px;
+
+animation:
+pulse 2s infinite,
+logoGlow 4s infinite alternate;
+}
+
+@keyframes logoGlow{
+
+0%{
+filter:drop-shadow(0 0 10px cyan);
+}
+
+50%{
+filter:drop-shadow(0 0 20px #00ff88);
+}
+
+100%{
+filter:drop-shadow(0 0 20px #ff00ff);
+}
+
+  }
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.08);}
+100%{transform:scale(1);}
+}
+
+h1{
+font-size:32px;
+margin-top:15px;
+}
+
+.loading-text{
+font-size:16px;
+opacity:.8;
+margin-bottom:15px;
+}
+
+.progress{
+width:100%;
+height:10px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin-bottom:25px;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#00ffff,#00ff88);
+border-radius:50px;
+animation:load 5s linear forwards;
+}
+
+@keyframes load{
+from{width:0%;}
+to{width:100%;}
+}
+.card{
+animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+  #installBtn{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+background:#00ffff;
+    }
+  
+.card{
+background:#0d0d0d;
+padding:15px;
+border-radius:18px;
+border:2px solid #00ffff;
+margin-bottom:20px;
+
+animation:borderGlow 3s infinite alternate;
+
+box-shadow:
+0 0 10px #00ffff,
+0 0 20px #00ffff;
+}
+
+@keyframes borderGlow{
+
+from{
+border-color:#00ffff;
+box-shadow:
+0 0 10px #00ffff,
+0 0 20px #00ffff;
+}
+
+to{
+border-color:#00ff88;
+box-shadow:
+0 0 15px #00ff88,
+0 0 30px #00ff88;
+}
+
+  }
+
+.card h3{
+margin-top:0;
+color:#00ffff;
+}
+
+.card p{
+font-size:16px;
+line-height:1.8;
+}
+
+.hidden{
+display:none;
+}
+
+.open-btn{
+padding:15px 35px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:#00ffff;
+color:black;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 0 25px #00ffff;
+margin-top:20px;
+margin-bottom:20px;
+}
+
+.open-btn:hover{
+transform:translateX(-50%) scale(1.05);
+}
+
+.footer{
+margin-top:20px;
+font-size:12px;
+opacity:.6;
+}
+
+</style>
+</head>
+
+<body>
+  <div class="card">
+<h3>🔔 Updates</h3>
+<p id="updateText">No new updates</p>
+  </div>
+
+<div class="container">
+
+<img src="icon.png" class="logo" alt="VPN Logo">
+
+<h1>Application VPN</h1>
+
+<p class="loading-text" id="statusText">
+Initializing Application VPN...
+</p>
+
+<div class="progress">
+<div class="progress-bar"></div>
+</div>
+<div class="card">
+<h3>📍 Localisation</h3>
+
+<p id="locationText">
+Detecting location...
+</p>
+
+</div>
+<div class="card">
+<h3>🌐 VPN Status</h3>
+<p>
+🟢 Online |
+🌍 Cameroon |
+⚡ Fast
+</p>
+</div>
+<div class="card">
+<h3>🌍 Localisation du serveur</h3>
+
+<select id="countrySelect"
+style="
+width:100%;
+padding:12px;
+font-size:16px;
+border-radius:10px;
+border:none;
+background:#111;
+color:white;
+">
+
+<option>🇨🇲 Cameroon</option>
+<option>🇺🇸 United States</option>
+<option>🇫🇷 France</option>
+<option>🇩🇪 Germany</option>
+<option>🇬🇧 United Kingdom</option>
+
+</select>
+
+<p id="selectedCountry">
+Serveur actuel : 🇨🇲 Cameroon
+</p>
+
+</div>
+  <div class="card">
+<h3>📊 Vitesse du réseau</h3>
+
+<p>⬇ Téléchargement : <span id="downloadSpeed">0</span> Mbps</p>
+
+<p>⬆ Envoi : <span id="uploadSpeed">0</span> Mbps</p>
+
+<p>📶 Ping : <span id="pingValue">0</span> ms</p>
+
+  </div>
+  <div class="card">
+<h3>🌤 Weather</h3>
+
+<p id="weatherTemp">28°C</p>
+
+<p id="weatherCondition">☀️ Sunny</p>
+
+  </div>
+  <button id="themeBtn">🌙 Mode sombre</button>
+<div class="card">
+<h3>🔒 Secure Connecterion</h3>
+<p>
+🛡️ AES-256 |
+📶 28ms
+</p>
+
+<p>
+🌍 IP Protégé |
+✅ No Leaks
+</p>
+</div>
+<div class="card">
+<h3>🔘 VPN Control</h3>
+
+<button id="vpnBtn"
+style="
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#00ff88;
+font-weight:bold;
+cursor:pointer;">
+Connecter
+</button>
+
+<p id="vpnState">Status: Déconnectered</p>
+
+</div>
+<div class="card">
+<h3>🕒 Heure Actuelle</h3>
+<p id="clock">Chargement...</p>
+</div>
+<div class="card">
+<h3>📱 Installer l'application</h3>
+
+<button id="installBtn">
+Installer l'applicationlication VPN
+</button>
+
+</div>
+<p class="footer">
+Powered by Application VPN v2
+</p>
+<div class="card">
+<h3>⏱ Connecterion Duration</h3>
+<p id="vpnTimer">00:00:00</p>
+</div>
+  <div class="card">
+<h3>🌍 IP Address</h3>
+
+<p id="ipAddress">
+192.168.1.100
+</p>
+
+<p id="ipStatus">
+🟢 Protégé
+</p>
+    <div class="card">
+<h3>📡 Signal Strength</h3>
+
+<p id="signalStrength">
+█████ Excellent
+</p>
+
+    </div>
+    <div class="card">
+<h3>📡 Network Status</h3>
+<p id="networkStatus">Checking...</p>
+    </div>
+<div class="card">
+<h3>🔋 Battery Status</h3>
+<p id="batteryLevel">Chargement...</p>
+</div>
+  </div>
+  <div class="card">
+<h3>📊 Daily Usage</h3>
+
+<p>📥 Data Used: <span id="dataUsed">0</span> MB</p>
+
+<p>⏱ Session Time: <span id="sessionTime">0</span> min</p>
+
+<p>🔗 Connecterions: <span id="connections">0</span></p>
+
+  </div>
+  <div class="card hidden" id="welcomeCard">
+<h3>🎉 Bienvenue</h3>
+<p>VPN Connectered Successfully</p>
+  </div>
+<button class="open-btn hidden" id="openBtn">
+📲 Ouvrir
+</button>
+
+</div>
+
+<script>
+
+setTimeout(function(){
+
+document.getElementById("statusText").innerHTML =
+"🛡️ Secure Connecterion Established";
+
+document.getElementById("openBtn")
+.classList.remove("hidden");
+
+},5000);
+  document.getElementById("welcomeCard")
+.classList.remove("hidden");
+
+document.getElementById("openBtn").onclick=function(){
+
+window.location.href =
+"https://formation-plus-fichiers-237.carrd.co/";
+
+};
+  function updateNetwork(){
+
+document.getElementById("networkStatus").innerHTML =
+navigator.onLine ?
+"🟢 Online" :
+"🔴 Offline";
+
+}
+
+window.addEventListener("online", updateNetwork);
+window.addEventListener("offline", updateNetwork);
+
+updateNetwork();
+
+function updateClock(){
+
+const now = new Date();
+
+document.getElementById("clock").innerHTML =
+now.toLocaleTimeString();
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+  const vpnBtn = document.getElementById("vpnBtn");
+const vpnState = document.getElementById("vpnState");
+
+let connected = false;
+
+vpnBtn.onclick = function(){
+
+connected = !connected;
+
+if(connected){
+
+vpnBtn.innerHTML = "Déconnecter";
+vpnBtn.style.background = "#ff4444";
+vpnState.innerHTML = "Status: Connectered 🟢";
+  playBeep();
+  document.getElementById("alertBox")
+.style.display = "block";
+
+setTimeout(()=>{
+document.getElementById("alertBox")
+.style.display = "none";
+},3000);
+
+}else{
+
+vpnBtn.innerHTML = "Connecter";
+vpnBtn.style.background = "#00ff88";
+vpnState.innerHTML = "Status: Déconnectered 🔴";
+
+}
+
+};
+  const weatherConditions = [
+"☀️ Sunny",
+"⛅ Partly Cloudy",
+"☁️ Cloudy",
+"🌦 Light Rain",
+"🌧 Rainy"
+];
+
+function updateWeather(){
+
+const temp =
+Math.floor(Math.random() * 10) + 24;
+
+const condition =
+weatherConditions[
+Math.floor(Math.random() * weatherConditions.length)
+];
+
+document.getElementById("weatherTemp")
+.innerHTML = temp + "°C";
+
+document.getElementById("weatherCondition")
+.innerHTML = condition;
+
+}
+
+setInterval(updateWeather,10000);
+
+updateWeather();
+  const updates = [
+"🟢 New VPN configs available",
+"⚡ Server maintenance completed",
+"🌍 New server added: Germany",
+"🔒 Security improvements applied"
+];
+
+function randomUpdate(){
+document.getElementById("updateText").innerHTML =
+updates[Math.floor(Math.random()*updates.length)];
+}
+
+setInterval(randomUpdate,10000);
+
+randomUpdate();
+  const countrySelect =
+document.getElementById("countrySelect");
+
+const selectedCountry =
+document.getElementById("selectedCountry");
+
+countrySelect.addEventListener("change", function(){
+
+selectedCountry.innerHTML =
+"Serveur actuel : " + this.value;
+
+});
+  function updateSpeed(){
+
+document.getElementById("downloadSpeed").innerHTML =
+Math.floor(Math.random() * 200) + 50;
+
+document.getElementById("uploadSpeed").innerHTML =
+Math.floor(Math.random() * 80) + 10;
+
+document.getElementById("pingValue").innerHTML =
+Math.floor(Math.random() * 40) + 10;
+
+}
+
+setInterval(updateSpeed, 3000);
+
+updateSpeed();
+  let seconds = 0;
+
+function updateTimer(){
+
+seconds++;
+
+let hrs = String(Math.floor(seconds / 3600)).padStart(2,'0');
+let mins = String(Math.floor((seconds % 3600) / 60)).padStart(2,'0');
+let secs = String(seconds % 60).padStart(2,'0');
+
+document.getElementById("vpnTimer").innerHTML =
+hrs + ":" + mins + ":" + secs;
+
+}
+
+setInterval(updateTimer,1000);
+  function generateIP(){
+
+return (
+Math.floor(Math.random()*255)+"."+
+Math.floor(Math.random()*255)+"."+
+Math.floor(Math.random()*255)+"."+
+Math.floor(Math.random()*255)
+);
+
+}
+  navigator.getBattery().then(function(battery){
+
+function updateBattery(){
+document.getElementById("batteryLevel").innerHTML =
+battery.level * 100 + "%";
+}
+
+updateBattery();
+
+battery.addEventListener("levelchange", updateBattery);
+
+});
+
+document.getElementById("ipAddress").innerHTML =
+generateIP();
+  const signals = [
+"███ Faible",
+"████ Bon",
+"█████ Excellent"
+];
+
+function updateSignal(){
+
+const randomSignal =
+signals[Math.floor(Math.random()*signals.length)];
+
+document.getElementById("signalStrength").innerHTML =
+randomSignal;
+
+}
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.onclick = function(){
+
+document.body.classList.toggle("light-mode");
+
+};
+setInterval(updateSignal,5000);
+
+updateSignal();
+  let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+document.getElementById("installBtn")
+.style.display = "inline-block";
+
+});
+
+document.getElementById("installBtn")
+.addEventListener("click", async () => {
+
+if(deferredPrompt){
+
+deferredPrompt.prompt();
+
+}
+
+});
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+  }
+  if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+const lat = position.coords.latitude;
+const lon = position.coords.longitude;
+
+document.getElementById("locationText")
+.innerHTML =
+"Lat: " + lat.toFixed(4) +
+"<br>Lon: " + lon.toFixed(4);
+
+},
+
+function(){
+
+document.getElementById("locationText")
+.innerHTML =
+"Enable location to view your city";
+
+}
+
+);
+
+}else{
+
+document.getElementById("locationText")
+.innerHTML =
+"Geolocation not supported";
+
+  }
+  let dataUsed = 0;
+let sessionTime = 0;
+let connections = 1;
+
+setInterval(()=>{
+
+dataUsed += Math.floor(Math.random()*5);
+
+sessionTime += 1;
+
+document.getElementById("dataUsed").innerHTML =
+dataUsed;
+
+document.getElementById("sessionTime").innerHTML =
+sessionTime;
+
+document.getElementById("connections").innerHTML =
+connections;
+
+},60000);
+  function playBeep(){
+
+const audioCtx =
+new (window.AudioContext || window.webkitAudioContext)();
+
+const oscillator =
+audioCtx.createOscillator();
+
+oscillator.type = "sine";
+
+oscillator.frequency.setValueAtTime(
+800,
+audioCtx.currentTime
+);
+
+oscillator.connect(audioCtx.destination);
+
+oscillator.start();
+
+oscillator.stop(audioCtx.currentTime + 0.15);
+
+  }
+
+</script>
+  <div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+  <div id="alertBox"
+style="
+display:none;
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#00ff88;
+color:black;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+z-index:9999;
+">
+VPN Connectered Successfully
+  </div>
+
+</body>
+</html>
