@@ -176,6 +176,16 @@ Current Server: 🇨🇲 Cameroon
 </p>
 
 </div>
+  <div class="card">
+<h3>📊 Network Speed</h3>
+
+<p>⬇ Download: <span id="downloadSpeed">0</span> Mbps</p>
+
+<p>⬆ Upload: <span id="uploadSpeed">0</span> Mbps</p>
+
+<p>📶 Ping: <span id="pingValue">0</span> ms</p>
+
+  </div>
 <div class="card">
 <h3>🔒 Secure Connection</h3>
 <p>
@@ -288,6 +298,22 @@ selectedCountry.innerHTML =
 "Current Server: " + this.value;
 
 });
+  function updateSpeed(){
+
+document.getElementById("downloadSpeed").innerHTML =
+Math.floor(Math.random() * 200) + 50;
+
+document.getElementById("uploadSpeed").innerHTML =
+Math.floor(Math.random() * 80) + 10;
+
+document.getElementById("pingValue").innerHTML =
+Math.floor(Math.random() * 40) + 10;
+
+}
+
+setInterval(updateSpeed, 3000);
+
+updateSpeed();
 
 </script>
 
