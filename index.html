@@ -453,6 +453,7 @@ if(connected){
 vpnBtn.innerHTML = "Disconnect";
 vpnBtn.style.background = "#ff4444";
 vpnState.innerHTML = "Status: Connected 🟢";
+  playBeep();
   document.getElementById("alertBox")
 .style.display = "block";
 
@@ -681,6 +682,28 @@ document.getElementById("connections").innerHTML =
 connections;
 
 },60000);
+  function playBeep(){
+
+const audioCtx =
+new (window.AudioContext || window.webkitAudioContext)();
+
+const oscillator =
+audioCtx.createOscillator();
+
+oscillator.type = "sine";
+
+oscillator.frequency.setValueAtTime(
+800,
+audioCtx.currentTime
+);
+
+oscillator.connect(audioCtx.destination);
+
+oscillator.start();
+
+oscillator.stop(audioCtx.currentTime + 0.15);
+
+  }
 
 </script>
   <div class="particle"></div>
