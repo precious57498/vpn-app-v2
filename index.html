@@ -57,9 +57,27 @@ transform:translateY(-100px);
 width:180px;
 margin-top:20px;
 margin-bottom:20px;
-box-shadow:0 0 40px cyan;
-animation:pulse 2s infinite;
+
+animation:
+pulse 2s infinite,
+logoGlow 4s infinite alternate;
 }
+
+@keyframes logoGlow{
+
+0%{
+filter:drop-shadow(0 0 10px cyan);
+}
+
+50%{
+filter:drop-shadow(0 0 20px #00ff88);
+}
+
+100%{
+filter:drop-shadow(0 0 20px #ff00ff);
+}
+
+  }
 
 @keyframes pulse{
 0%{transform:scale(1);}
@@ -390,6 +408,13 @@ if(connected){
 vpnBtn.innerHTML = "Disconnect";
 vpnBtn.style.background = "#ff4444";
 vpnState.innerHTML = "Status: Connected 🟢";
+  document.getElementById("alertBox")
+.style.display = "block";
+
+setTimeout(()=>{
+document.getElementById("alertBox")
+.style.display = "none";
+},3000);
 
 }else{
 
@@ -524,6 +549,22 @@ deferredPrompt.prompt();
 <div class="particle"></div>
 <div class="particle"></div>
 <div class="particle"></div>
+  <div id="alertBox"
+style="
+display:none;
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#00ff88;
+color:black;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+z-index:9999;
+">
+VPN Connected Successfully
+  </div>
 
 </body>
 </html>
