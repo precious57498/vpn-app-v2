@@ -149,7 +149,33 @@ Initializing VPN App...
 ⚡ Fast
 </p>
 </div>
+<div class="card">
+<h3>🌍 Server Location</h3>
 
+<select id="countrySelect"
+style="
+width:100%;
+padding:12px;
+font-size:16px;
+border-radius:10px;
+border:none;
+background:#111;
+color:white;
+">
+
+<option>🇨🇲 Cameroon</option>
+<option>🇺🇸 United States</option>
+<option>🇫🇷 France</option>
+<option>🇩🇪 Germany</option>
+<option>🇬🇧 United Kingdom</option>
+
+</select>
+
+<p id="selectedCountry">
+Current Server: 🇨🇲 Cameroon
+</p>
+
+</div>
 <div class="card">
 <h3>🔒 Secure Connection</h3>
 <p>
@@ -250,6 +276,18 @@ vpnState.innerHTML = "Status: Disconnected 🔴";
 }
 
 };
+  const countrySelect =
+document.getElementById("countrySelect");
+
+const selectedCountry =
+document.getElementById("selectedCountry");
+
+countrySelect.addEventListener("change", function(){
+
+selectedCountry.innerHTML =
+"Current Server: " + this.value;
+
+});
 
 </script>
 
