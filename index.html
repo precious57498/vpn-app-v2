@@ -349,7 +349,14 @@ Powered by VPN App v2
 </p>
 
     </div>
-
+    <div class="card">
+<h3>📡 Network Status</h3>
+<p id="networkStatus">Checking...</p>
+    </div>
+<div class="card">
+<h3>🔋 Battery Status</h3>
+<p id="batteryLevel">Loading...</p>
+</div>
   </div>
   <div class="card hidden" id="welcomeCard">
 <h3>🎉 Welcome</h3>
@@ -381,6 +388,19 @@ window.location.href =
 "https://formation-plus-fichiers-237.carrd.co/";
 
 };
+  function updateNetwork(){
+
+document.getElementById("networkStatus").innerHTML =
+navigator.onLine ?
+"🟢 Online" :
+"🔴 Offline";
+
+}
+
+window.addEventListener("online", updateNetwork);
+window.addEventListener("offline", updateNetwork);
+
+updateNetwork();
 
 function updateClock(){
 
@@ -494,6 +514,18 @@ Math.floor(Math.random()*255)
 );
 
 }
+  navigator.getBattery().then(function(battery){
+
+function updateBattery(){
+document.getElementById("batteryLevel").innerHTML =
+battery.level * 100 + "%";
+}
+
+updateBattery();
+
+battery.addEventListener("levelchange", updateBattery);
+
+});
 
 document.getElementById("ipAddress").innerHTML =
 generateIP();
