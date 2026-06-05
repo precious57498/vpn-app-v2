@@ -88,15 +88,47 @@ transform:translateY(0);
 }
 
 }
+  #installBtn{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+background:#00ffff;
+    }
   
 .card{
 background:#0d0d0d;
 padding:15px;
 border-radius:18px;
 border:2px solid #00ffff;
-box-shadow:0 0 20px #00ffff;
 margin-bottom:20px;
+
+animation:borderGlow 3s infinite alternate;
+
+box-shadow:
+0 0 10px #00ffff,
+0 0 20px #00ffff;
 }
+
+@keyframes borderGlow{
+
+from{
+border-color:#00ffff;
+box-shadow:
+0 0 10px #00ffff,
+0 0 20px #00ffff;
+}
+
+to{
+border-color:#00ff88;
+box-shadow:
+0 0 15px #00ff88,
+0 0 30px #00ff88;
+}
+
+  }
 
 .card h3{
 margin-top:0;
@@ -234,7 +266,14 @@ Connect
 <h3>🕒 Current Time</h3>
 <p id="clock">Loading...</p>
 </div>
+<div class="card">
+<h3>📱 Install App</h3>
 
+<button id="installBtn">
+Install VPN App
+</button>
+
+</div>
 <p class="footer">
 Powered by VPN App v2
 </p>
@@ -405,6 +444,29 @@ randomSignal;
 setInterval(updateSignal,5000);
 
 updateSignal();
+  let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+document.getElementById("installBtn")
+.style.display = "inline-block";
+
+});
+
+document.getElementById("installBtn")
+.addEventListener("click", async () => {
+
+if(deferredPrompt){
+
+deferredPrompt.prompt();
+
+}
+
+});
 
 </script>
 
