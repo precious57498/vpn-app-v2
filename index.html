@@ -225,6 +225,18 @@ Powered by VPN App v2
 <h3>⏱ Connection Duration</h3>
 <p id="vpnTimer">00:00:00</p>
 </div>
+  <div class="card">
+<h3>🌍 IP Address</h3>
+
+<p id="ipAddress">
+192.168.1.100
+</p>
+
+<p id="ipStatus">
+🟢 Protected
+</p>
+
+  </div>
 <button class="open-btn hidden" id="openBtn">
 📲 Ouvrir
 </button>
@@ -330,6 +342,19 @@ hrs + ":" + mins + ":" + secs;
 }
 
 setInterval(updateTimer,1000);
+  function generateIP(){
+
+return (
+Math.floor(Math.random()*255)+"."+
+Math.floor(Math.random()*255)+"."+
+Math.floor(Math.random()*255)+"."+
+Math.floor(Math.random()*255)
+);
+
+}
+
+document.getElementById("ipAddress").innerHTML =
+generateIP();
 
 </script>
 
