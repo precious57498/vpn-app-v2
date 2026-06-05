@@ -52,6 +52,10 @@ to{
 transform:translateY(-100px);
 }
 }
+  .light-mode{
+background:#f5f5f5;
+color:#000;
+  }
 
 .logo{
 width:180px;
@@ -600,7 +604,13 @@ document.getElementById("signalStrength").innerHTML =
 randomSignal;
 
 }
+const themeBtn = document.getElementById("themeBtn");
 
+themeBtn.onclick = function(){
+
+document.body.classList.toggle("light-mode");
+
+};
 setInterval(updateSignal,5000);
 
 updateSignal();
