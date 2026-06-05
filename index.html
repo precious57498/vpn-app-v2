@@ -221,7 +221,10 @@ Connect
 <p class="footer">
 Powered by VPN App v2
 </p>
-
+<div class="card">
+<h3>⏱ Connection Duration</h3>
+<p id="vpnTimer">00:00:00</p>
+</div>
 <button class="open-btn hidden" id="openBtn">
 📲 Ouvrir
 </button>
@@ -311,6 +314,22 @@ Math.floor(Math.random() * 40) + 10;
 setInterval(updateSpeed, 3000);
 
 updateSpeed();
+  let seconds = 0;
+
+function updateTimer(){
+
+seconds++;
+
+let hrs = String(Math.floor(seconds / 3600)).padStart(2,'0');
+let mins = String(Math.floor((seconds % 3600) / 60)).padStart(2,'0');
+let secs = String(seconds % 60).padStart(2,'0');
+
+document.getElementById("vpnTimer").innerHTML =
+hrs + ":" + mins + ":" + secs;
+
+}
+
+setInterval(updateTimer,1000);
 
 </script>
 
