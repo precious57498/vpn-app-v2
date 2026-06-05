@@ -162,7 +162,24 @@ Initializing VPN App...
 ✅ No Leaks
 </p>
 </div>
+<div class="card">
+<h3>🔘 VPN Control</h3>
 
+<button id="vpnBtn"
+style="
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#00ff88;
+font-weight:bold;
+cursor:pointer;">
+Connect
+</button>
+
+<p id="vpnState">Status: Disconnected</p>
+
+</div>
 <div class="card">
 <h3>🕒 Current Time</h3>
 <p id="clock">Loading...</p>
@@ -209,6 +226,30 @@ now.toLocaleTimeString();
 setInterval(updateClock,1000);
 
 updateClock();
+  const vpnBtn = document.getElementById("vpnBtn");
+const vpnState = document.getElementById("vpnState");
+
+let connected = false;
+
+vpnBtn.onclick = function(){
+
+connected = !connected;
+
+if(connected){
+
+vpnBtn.innerHTML = "Disconnect";
+vpnBtn.style.background = "#ff4444";
+vpnState.innerHTML = "Status: Connected 🟢";
+
+}else{
+
+vpnBtn.innerHTML = "Connect";
+vpnBtn.style.background = "#00ff88";
+vpnState.innerHTML = "Status: Disconnected 🔴";
+
+}
+
+};
 
 </script>
 
