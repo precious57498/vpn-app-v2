@@ -235,6 +235,14 @@ Powered by VPN App v2
 <p id="ipStatus">
 🟢 Protected
 </p>
+    <div class="card">
+<h3>📡 Signal Strength</h3>
+
+<p id="signalStrength">
+█████ Excellent
+</p>
+
+    </div>
 
   </div>
 <button class="open-btn hidden" id="openBtn">
@@ -355,6 +363,25 @@ Math.floor(Math.random()*255)
 
 document.getElementById("ipAddress").innerHTML =
 generateIP();
+  const signals = [
+"███ Weak",
+"████ Good",
+"█████ Excellent"
+];
+
+function updateSignal(){
+
+const randomSignal =
+signals[Math.floor(Math.random()*signals.length)];
+
+document.getElementById("signalStrength").innerHTML =
+randomSignal;
+
+}
+
+setInterval(updateSignal,5000);
+
+updateSignal();
 
 </script>
 
