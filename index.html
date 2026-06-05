@@ -71,7 +71,24 @@ animation:load 5s linear forwards;
 from{width:0%;}
 to{width:100%;}
 }
+.card{
+animation:fadeIn 1s ease;
+}
 
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+  
 .card{
 background:#0d0d0d;
 padding:15px;
@@ -245,6 +262,10 @@ Powered by VPN App v2
     </div>
 
   </div>
+  <div class="card hidden" id="welcomeCard">
+<h3>🎉 Welcome</h3>
+<p>VPN Connected Successfully</p>
+  </div>
 <button class="open-btn hidden" id="openBtn">
 📲 Ouvrir
 </button>
@@ -262,6 +283,8 @@ document.getElementById("openBtn")
 .classList.remove("hidden");
 
 },5000);
+  document.getElementById("welcomeCard")
+.classList.remove("hidden");
 
 document.getElementById("openBtn").onclick=function(){
 
