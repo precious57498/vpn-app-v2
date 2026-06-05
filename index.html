@@ -282,6 +282,14 @@ Current Server: 🇨🇲 Cameroon
 <p>📶 Ping: <span id="pingValue">0</span> ms</p>
 
   </div>
+  <div class="card">
+<h3>🌤 Weather</h3>
+
+<p id="weatherTemp">28°C</p>
+
+<p id="weatherCondition">☀️ Sunny</p>
+
+  </div>
 <div class="card">
 <h3>🔒 Secure Connection</h3>
 <p>
@@ -445,6 +453,35 @@ vpnState.innerHTML = "Status: Disconnected 🔴";
 }
 
 };
+  const weatherConditions = [
+"☀️ Sunny",
+"⛅ Partly Cloudy",
+"☁️ Cloudy",
+"🌦 Light Rain",
+"🌧 Rainy"
+];
+
+function updateWeather(){
+
+const temp =
+Math.floor(Math.random() * 10) + 24;
+
+const condition =
+weatherConditions[
+Math.floor(Math.random() * weatherConditions.length)
+];
+
+document.getElementById("weatherTemp")
+.innerHTML = temp + "°C";
+
+document.getElementById("weatherCondition")
+.innerHTML = condition;
+
+}
+
+setInterval(updateWeather,10000);
+
+updateWeather();
   const updates = [
 "🟢 New VPN configs available",
 "⚡ Server maintenance completed",
